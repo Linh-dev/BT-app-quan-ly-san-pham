@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quan ly san pham</title>
+    <style type="text/css">
+        button{
+            background-color: #6cc11a;
+            border-style: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<b><p>Add New Product:</p></b>
+<input type="text" id="product" value="New product" onclick="deleteValue()">
+<button onclick="addProduct()">Add</button><br><br>
+
+<b><p>Display All Product:</p></b>
+<table style="border-collapse: collapse; border: 1px; width: 30%;"    >
+    <tr>
+        <td width="60">STT</td>
+        <td colspan="3">Products Name</td>
+    </tr>
+    <tbody id="displayList"></tbody>
+</table>
+
+<script>
+    var listProducts = [];
+    function index(){
+        let html = '';
+        for (let i=0;i<listProducts.length;i++){
+            html += '<tr>';
+
+            html += '<td>';
+            html += 1+i;
+            html += '</td>';
+            html += '<td>';
+            html += listProducts[i]
+            html += '</td>';
+            html += '<td width="60">';
+            html += '<button onclick="edit('+i+')">Edit</button>'
+            html += '</td>';
+            html += '<td width="60">';
+            html += '<button onclick="deleteProducts('+i+')" >Delete</button>'
+            html += '</td>';
+
+            html += '</tr>';
+
+        }
+        document.getElementById("displayList").innerHTML = html;
+    }
+    function addProduct(){
+        let product = document.getElementById("product");
+        listProducts.push(product.value);
+        document.getElementById('product').value = "New product";
+        index();
+        document.getElementById("product").value = "";
+    }
+    function deleteProducts(a){
+        listProducts.splice(a,1);
+        index();
+    }
+    function edit(b){
+        let newProduct = prompt('Edit:');
+        listProducts[b] = newProduct;
+        index();
+    }
+    function deleteValue(){
+        document.getElementById('product').value = '';
+    }
+    index();
+</script>
+</body>
+</html>
